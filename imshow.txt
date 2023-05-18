@@ -1,0 +1,274 @@
+import matplotlib.pyplot as plt
+
+
+plt.imshow(images[0,0,0].cpu(), interpolation='nearest')
+plt.show()
+plt.imshow(labels[0,:, :,0].cpu(), interpolation='nearest')
+plt.show()
+plt.imshow(output_clone[0,:, :,0].cpu() > 0.5, interpolation='nearest')
+plt.show()
+
+
+
+plt.imshow(images[0,0,0].cpu(), interpolation='nearest')
+plt.imsave("data_anomalities/input.png", images[0,0,0].cpu())
+plt.show()
+plt.imshow(labels[0,:, :,0].cpu(), interpolation='nearest')
+plt.imsave("data_anomalities/gt.png", labels[0,:, :,0].cpu())
+plt.show()
+plt.imshow(output_clone[0,:, :,0].cpu() > 0.5, interpolation='nearest')
+plt.imsave("data_anomalities/output.png", output_clone[0,:, :,0].cpu() > 0.5)
+plt.show()
+
+
+import matplotlib.pyplot as plt
+
+
+plt.imshow(images[0,0,:,:,0].cpu(),interpolation='nearest')
+plt.show()
+plt.imshow(labels[0,0,:,:,0].cpu(),interpolation='nearest')
+plt.show()
+plt.imshow(output_clone[0,0,:,:,0].cpu(),interpolation='nearest')
+plt.show()
+
+
+import matplotlib.pyplot as plt
+
+
+plt.imshow(images[0,0,0,:,:].cpu(),interpolation='nearest')
+plt.show()
+plt.imshow(labels[0,0,0,:,:].cpu(),interpolation='nearest')
+plt.show()
+plt.imshow(output_clone[0,0,0,:,:].cpu(),interpolation='nearest')
+plt.show()
+
+import matplotlib.pyplot as plt
+
+
+plt.imshow(images[0,0,0,:,:].cpu(),interpolation='nearest')
+plt.show()
+plt.imshow(labels[0,0,0,:,:].cpu(),interpolation='nearest')
+plt.show()
+plt.imshow(output_clone[0,0,0,:,:].cpu() > 0.5,interpolation='nearest')
+plt.show()
+
+
+import matplotlib.pyplot as plt
+
+for index in output_clone.shape[2]:
+    plt.imshow(images[0, 0, index, :, :].cpu(), interpolation='nearest')
+    plt.imsave(f"learning_out/input-{index}.png")
+    plt.imshow(labels[0, 0, index, :, :].cpu(), interpolation='nearest')
+    plt.imsave(f"learning_out/gt-{index}.png")
+    plt.imshow(output_clone[0, 0, index, :, :].cpu() > 0.5, interpolation='nearest')
+    plt.imsave(f"learning_out/output-{index}.png")
+
+
+import matplotlib.pyplot as plt
+
+for index in range(output_clone.shape[2]):
+    plt.imsave(f"learning_out/{index}-input.png", images[0, 0, index, :, :].cpu())
+    plt.imsave(f"learning_out/{index}-gt.png", labels[0, 0, index, :, :].cpu())
+    plt.imsave(f"learning_out/{index}-output.png", output_clone[0, 0, index, :, :].cpu() > 0.5)
+
+
+import matplotlib.pyplot as plt
+
+for index in range(output_clone.shape[2]):
+    plt.imsave(f"learning_out/{index}-input.png", images[0, 0, index, :, :].cpu())
+    plt.imsave(f"learning_out/{index}-gt.png", labels[0, 0, index, :, :].cpu(), cmap='gray', vmin=0, vmax=1)
+    plt.imsave(f"learning_out/{index}-output.png", output_clone[0, 0, index, :, :].cpu() > 0.5, cmap='gray', vmin=0, vmax=1)
+
+
+import matplotlib.pyplot as plt
+
+plt.imshow(one_label.cpu(), interpolation='nearest')
+plt.show()
+plt.imshow(one_output.cpu(), interpolation='nearest')
+plt.show()
+
+
+from matplotlib import pyplot as plt
+from sklearn.metrics import precision_recall_curve
+
+scores = precision_recall_curve(labels.view(-1).cpu().numpy(), output_clone.view(-1).cpu().numpy())
+fig, ax = plt.subplots(figsize=(6,6))
+ax.plot(scores[0], scores[1], label='Logistic Regression')
+# baseline = len(labels[labels==1]) / len(labels)
+# ax.plot([0, 1], [baseline, baseline], linestyle='--', label='Baseline')
+ax.set_xlabel('Recall')
+ax.set_ylabel('Precision')
+ax.legend(loc='center left')
+plt.show()
+
+
+from matplotlib import pyplot as plt
+from sklearn.metrics import precision_recall_curve
+
+scores = compute_precision_recall_curve(output_metric, label_metric)
+fig, ax = plt.subplots(figsize=(6,6))
+ax.plot(scores[0], scores[1], label='Logistic Regression')
+# baseline = len(labels[labels==1]) / len(labels)
+# ax.plot([0, 1], [baseline, baseline], linestyle='--', label='Baseline')
+ax.set_xlabel('Recall')
+ax.set_ylabel('Precision')
+ax.legend(loc='center left')
+plt.show()
+
+
+from matplotlib import pyplot as plt
+
+mean_prc = torch.tensor(precision_recall_score).mean(0)
+std_prc = torch.tensor(precision_recall_score).std(0)
+
+fig, ax = plt.subplots(figsize=(6,6))
+ax.plot(mean_prc[0], mean_prc[1], 'or')
+ax.plot(mean_prc[0], mean_prc[1], '-', color='gray')
+
+ax.fill_between(mean_prc[0], mean_prc[1] - std_prc[1], mean_prc[1] + std_prc[1],
+                 color='gray', alpha=0.2)
+# baseline = len(labels[labels==1]) / len(labels)
+# ax.plot([0, 1], [baseline, baseline], linestyle='--', label='Baseline')
+ax.set_xlabel('Recall')
+ax.set_ylabel('Precision')
+ax.legend(loc='center left')
+plt.show()
+
+
+from matplotlib import pyplot as plt
+
+mean_prc = torch.tensor(precision_recall_score).mean(0)
+std_prc = torch.tensor(precision_recall_score).std(0)
+
+fig, ax = plt.subplots(figsize=(6,6))
+ax.plot(mean_prc[0], mean_prc[1], 'or')
+ax.plot(mean_prc[0], mean_prc[1], '-', color='gray', label='BCE Loss')
+
+ax.fill_between(mean_prc[0], mean_prc[1] - std_prc[1], mean_prc[1] + std_prc[1],
+                 color='gray', alpha=0.2)
+# baseline = len(labels[labels==1]) / len(labels)
+# ax.plot([0, 1], [baseline, baseline], linestyle='--', label='Baseline')
+ax.set_xlabel('Recall')
+ax.set_ylabel('Precision')
+# ax.set_ylim([0.5, 1.])
+# ax.set_xlim([0.5, 1.])
+ax.legend(loc='center left')
+plt.show()
+
+
+
+
+
+
+from matplotlib import pyplot as plt
+import seaborn as sns
+
+mean_prc = torch.tensor(precision_recall_score).mean(0)[:, 1:]
+std_prc = torch.tensor(precision_recall_score).std(0)[:, 1:]
+
+sns.set_theme()
+sns.set_context("paper")
+
+fig, ax = plt.subplots(figsize=(6,6))
+ax.plot(mean_prc[0], mean_prc[1], 'or')
+ax.plot(mean_prc[0], mean_prc[1], '-', color='gray', label='3D-Unet: FOCAL-DICE Loss')
+
+ax.fill_between(mean_prc[0], mean_prc[1] - std_prc[1], mean_prc[1] + std_prc[1],
+                 color='gray', alpha=0.2)
+# baseline = len(labels[labels==1]) / len(labels)
+# ax.plot([0, 1], [baseline, baseline], linestyle='--', label='Baseline')
+ax.set_xlabel('Recall')
+ax.set_ylabel('Precision')
+# ax.set_ylim([0.5, 1.])
+# ax.set_xlim([0.5, 1.])
+ax.legend(loc='center left')
+plt.show()
+
+
+
+
+
+iou_mean, iou_std, old_iou_mean, old_iou_std = compute_measure_values(test_iou_score)
+acc_mean, acc_std, old_acc_mean, old_acc_std = compute_measure_values(test_accuracy)
+precision_mean, precision_std, old_precision_mean, old_precision_std = compute_measure_values(test_precision)
+recall_mean, recall_std, old_recall_mean, old_recall_std = compute_measure_values(test_recall)
+f1_score_mean, f1_score_std, old_f1_score_mean, old_f1_score_std = compute_measure_values(test_f1_score)
+
+print(f"##METRICS##\n"
+              f"IOU: mean: {iou_mean:4f} - std: {iou_std:4f} - old_mean: {old_iou_mean:4f} - "
+              f"old_std: {old_iou_std:4f}\n",
+f"ACC: mean: {acc_mean:4f} - std: {acc_std:4f} - old_mean: {old_acc_mean:4f} - "
+              f"old_std: {old_acc_std:4f}\n",
+      
+              f"Precision: mean: {precision_mean:4f} - std: {precision_std:4f} - old_mean: {old_precision_mean:4f} - "
+              f"old_std: {old_precision_std:4f}\n",
+              f"Recall: mean: {recall_mean:4f} - std: {recall_std:4f} - old_mean: {old_recall_mean:4f} - "
+              f"old_std: {old_recall_std:4f}\n",
+              f"F1 Score: mean: {f1_score_mean:4f} - std: {f1_score_std:4f} - old_mean: {old_f1_score_mean:4f} - "
+              f"old_std: {old_f1_score_std:4f}\n")
+
+
+
+
+from matplotlib import pyplot as plt
+import seaborn as sns
+from sklearn.metrics import auc
+
+mean_prc = torch.tensor(precision_recall_score).mean(0)[:, :]
+std_prc = torch.tensor(precision_recall_score).std(0)[:, :]
+
+sns.set_theme()
+sns.set_context("paper")
+
+fig, ax = plt.subplots(figsize=(6,6))
+ax.plot(mean_prc[0], mean_prc[1], 'or')
+ax.plot(mean_prc[0], mean_prc[1], '-', color='gray', label='3D-Unet: FOCAL-DICE Loss')
+
+ax.fill_between(mean_prc[0], mean_prc[1] - std_prc[1], mean_prc[1] + std_prc[1],
+                 color='gray', alpha=0.2)
+# baseline = len(labels[labels==1]) / len(labels)
+# ax.plot([0, 1], [baseline, baseline], linestyle='--', label='Baseline')
+ax.set_xlabel('Recall')
+ax.set_ylabel('Precision')
+# ax.set_ylim([0.5, 1.])
+# ax.set_xlim([0.5, 1.])
+# ax.plot(mean_prc[1], mean_prc[0], 'or')
+# ax.plot(mean_prc[1], mean_prc[0], '-', color='green', label='3D-Unet: FOCAL-ds Loss')
+ax.legend(loc='center left')
+auc_score = auc(mean_prc[1], mean_prc[0])
+print(f"AUC Score is: {auc_score:.4f}")
+
+plt.show()
+
+
+
+
+from matplotlib import pyplot as plt
+import seaborn as sns
+from sklearn.metrics import auc
+
+mean_prc = torch.tensor(precision_recall_score).mean(0)[:, :]
+std_prc = torch.tensor(precision_recall_score).std(0)[:, :]
+
+sns.set_theme()
+sns.set_context("paper")
+
+fig, ax = plt.subplots(figsize=(6,6))
+ax.plot(mean_prc[1], mean_prc[0], 'or')
+ax.plot(mean_prc[1], mean_prc[0], '-', color='gray', label='3D-Unet: FOCAL-DICE Loss')
+
+ax.fill_between(mean_prc[1], mean_prc[0] - std_prc[0], mean_prc[0] + std_prc[0],
+                 color='gray', alpha=0.2)
+# baseline = len(labels[labels==1]) / len(labels)
+# ax.plot([0, 1], [baseline, baseline], linestyle='--', label='Baseline')
+ax.set_xlabel('Recall')
+ax.set_ylabel('Precision')
+# ax.set_ylim([0.5, 1.])
+# ax.set_xlim([0.5, 1.])
+# ax.plot(mean_prc[1], mean_prc[0], 'or')
+# ax.plot(mean_prc[1], mean_prc[0], '-', color='green', label='3D-Unet: FOCAL-ds Loss')
+ax.legend(loc='center left')
+auc_score = auc(mean_prc[0], mean_prc[1])
+print(f"AUC Score is: {auc_score:.4f}")
+
+plt.show()

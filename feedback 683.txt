@@ -1,0 +1,33 @@
+metric(torch.reshape(output, (output.shape[0], output.shape[1] * output.shape[2])), torch.reshape(label, (output.shape[0], output.shape[1] * output.shape[2])))
+
+
+
+
+plt.imshow(images[0,0,0].cpu(),interpolation='nearest')
+plt.show()@@
+
+confounding variables
+
+%  @article{hollands_parker_morton_2002, title={Judgments of 3D bars in depth}, volume={46}, DOI={10.1177/154193120204601708}, number={17}, journal={Proceedings of the Human Factors and Ergonomics Society Annual Meeting}, author={Hollands, J. G. and Parker, Heather A. and Morton, Andrew}, year={2002}, month={Sep}, pages={1565–1569}} 
+
+
+Physicalized visualizations 
+improve cognition
+Improve perception
+Linked to perceptual queues etc. 
+Bar charts are riddled with perception issues (Take image from forbes article)
+Notorious for bad visualization
+
+
+
+Additional References to add: 
+Exploring Interactions with Physically Dynamic Bar Charts 
+
+
+Occlusion problem in 3D bar charts
+
+revision on two things:
+KURTIS and JANSEN work to use haptics
+
+conclusion:
+BETTER STUDY DESIGN WITH USE OF PHYSICAL OBJECT ECT>..

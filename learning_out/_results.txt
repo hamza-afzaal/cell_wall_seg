@@ -1,0 +1,11 @@
+## 3D BCE-DICE Group, ReLU
+IOU: mean: 0.804343 - std: 0.079030 - old_mean: 0.663424 - old_std: 0.314071
+ Precision: mean: 0.868687 - std: 0.079308 - old_mean: 0.716495 - old_std: 0.337983
+ Recall: mean: 0.917888 - std: 0.056022 - old_mean: 0.757076 - old_std: 0.352612
+ F1 Score: mean: 0.889149 - std: 0.056069 - old_mean: 0.733372 - old_std: 0.341812
+
+## 3D FOCAL-DICE Group, PReLU
+IOU: mean: 0.766898 - std: 0.081350 - old_mean: 0.632134 - old_std: 0.301071
+ Precision: mean: 0.798971 - std: 0.085605 - old_mean: 0.658571 - old_std: 0.313853
+ Recall: mean: 0.952650 - std: 0.040886 - old_mean: 0.785245 - old_std: 0.364461
+ F1 Score: mean: 0.864928 - std: 0.069987 - old_mean: 0.712938 - old_std: 0.335256
